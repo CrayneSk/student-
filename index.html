@@ -1,1463 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudentTools Hub — Free Study Tools for Students</title>
-    <style>
-        :root {
-            --bg: #f5f7fa;
-            --card-bg: #ffffff;
-            --text: #2c3e50;
-            --text-secondary: #5a6c7d;
-            --accent: #4a90d9;
-            --accent-hover: #357abd;
-            --accent-light: #e8f2fb;
-            --border: #e2e8f0;
-            --shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.10);
-            --radius: 14px;
-            --radius-sm: 10px;
-            --navbar-bg: #ffffff;
-            --footer-bg: #ffffff;
-            --success: #27ae60;
-            --warning: #f39c12;
-            --danger: #e74c3c;
-            --timer-bg: #f0f4f8;
-            --input-bg: #f9fafb;
-            --tag-bg: #e8f2fb;
-            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mumue Jobs Platform</title>
 
-        .dark-mode {
-            --bg: #1a1d26;
-            --card-bg: #242730;
-            --text: #e0e4ec;
-            --text-secondary: #a8b2c1;
-            --border: #363a45;
-            --shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
-            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.40);
-            --navbar-bg: #1e2029;
-            --footer-bg: #1e2029;
-            --timer-bg: #2a2d37;
-            --input-bg: #2a2d37;
-            --tag-bg: #2a3545;
-            --accent-light: #1e2d42;
-        }
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-            transition: background var(--transition), color var(--transition);
-        }
+body {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+}
 
-        /* Navbar */
-        .navbar {
-            background: var(--navbar-bg);
-            border-bottom: 1px solid var(--border);
-            padding: 0 1.5rem;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow);
-            transition: background var(--transition), border var(--transition);
-            gap: 1rem;
-        }
-        .navbar .logo {
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: var(--accent);
-            letter-spacing: -0.3px;
-            white-space: nowrap;
-            cursor: pointer;
-            user-select: none;
-        }
-        .navbar .logo span {
-            color: var(--text);
-            font-weight: 400;
-        }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            list-style: none;
-            flex-wrap: wrap;
-        }
-        .nav-links li {
-            position: relative;
-        }
-        .nav-links a,
-        .nav-links button {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 500;
-            font-size: 0.92rem;
-            padding: 0.5rem 0.9rem;
-            border-radius: 8px;
-            transition: all var(--transition);
-            cursor: pointer;
-            background: none;
-            border: none;
-            font-family: inherit;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
-        }
-        .nav-links a:hover,
-        .nav-links button:hover {
-            background: var(--accent-light);
-            color: var(--accent);
-        }
-        .nav-links .active-link {
-            background: var(--accent-light);
-            color: var(--accent);
-            font-weight: 600;
-        }
-        /* Dropdown */
-        .dropdown {
-            position: relative;
-        }
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            box-shadow: var(--shadow-hover);
-            min-width: 200px;
-            padding: 0.4rem;
-            z-index: 200;
-            list-style: none;
-            transition: background var(--transition);
-        }
-        .dropdown:hover .dropdown-menu,
-        .dropdown:focus-within .dropdown-menu {
-            display: block;
-        }
-        .dropdown-menu li a {
-            display: block;
-            padding: 0.55rem 1rem;
-            border-radius: 6px;
-            font-size: 0.88rem;
-            color: var(--text);
-            cursor: pointer;
-            text-decoration: none;
-            transition: all var(--transition);
-        }
-        .dropdown-menu li a:hover {
-            background: var(--accent-light);
-            color: var(--accent);
-        }
-        .dark-toggle {
-            font-size: 1.3rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.4rem 0.6rem;
-            border-radius: 50%;
-            transition: all var(--transition);
-            line-height: 1;
-        }
-        .dark-toggle:hover {
-            background: var(--accent-light);
-            transform: rotate(20deg);
-        }
+/* NAVBAR */
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+}
 
-        /* Main Container */
-        .main-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 1.5rem 1.2rem 3rem;
-            min-height: calc(100vh - 140px);
-        }
-        .section {
-            display: none;
-            animation: fadeSlideIn 0.35s ease;
-        }
-        .section.active {
-            display: block;
-        }
-        @keyframes fadeSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(16px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+nav a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+}
 
-        /* Dashboard */
-        .dashboard-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .dashboard-header h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 0.3rem;
-        }
-        .dashboard-header p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.25rem;
-        }
-        .tool-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.6rem 1.5rem;
-            cursor: pointer;
-            transition: all var(--transition);
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-        }
-        .tool-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--accent);
-        }
-        .tool-card .icon-circle {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--accent-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            flex-shrink: 0;
-        }
-        .tool-card h3 {
-            font-size: 1.15rem;
-            font-weight: 600;
-            letter-spacing: -0.2px;
-        }
-        .tool-card p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        .tool-card .card-badge {
-            position: absolute;
-            top: 14px;
-            right: 14px;
-            background: var(--accent);
-            color: #fff;
-            font-size: 0.7rem;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
-        .premium-badge {
-            background: #f39c12 !important;
-        }
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+}
 
-        /* Ad Banner */
-        .ad-banner {
-            background: var(--card-bg);
-            border: 2px dashed var(--border);
-            border-radius: var(--radius);
-            padding: 1rem 1.5rem;
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-top: 1.5rem;
-            letter-spacing: 0.3px;
-            transition: all var(--transition);
-        }
-        .ad-banner:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
+.hero h1 {
+  font-size: 2.5rem;
+}
 
-        /* Tool Sections (inner pages) */
-        .tool-section-header {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .tool-section-header .back-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text);
-            transition: all var(--transition);
-            font-family: inherit;
-            white-space: nowrap;
-        }
-        .tool-section-header .back-btn:hover {
-            background: var(--accent-light);
-            color: var(--accent);
-            border-color: var(--accent);
-        }
-        .tool-section-header h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-        }
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            margin-bottom: 1.25rem;
-            box-shadow: var(--shadow);
-            transition: all var(--transition);
-        }
-        .card h3 {
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-        }
-        label {
-            display: block;
-            font-weight: 500;
-            margin-bottom: 0.3rem;
-            font-size: 0.9rem;
-            color: var(--text);
-        }
-        input,
-        select,
-        textarea {
-            width: 100%;
-            padding: 0.7rem 0.9rem;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 0.95rem;
-            font-family: inherit;
-            background: var(--input-bg);
-            color: var(--text);
-            transition: all var(--transition);
-            margin-bottom: 0.7rem;
-        }
-        input:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.12);
-        }
-        textarea {
-            resize: vertical;
-            min-height: 90px;
-        }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.65rem 1.3rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            border: none;
-            font-family: inherit;
-            transition: all var(--transition);
-            letter-spacing: -0.1px;
-            white-space: nowrap;
-        }
-        .btn-primary {
-            background: var(--accent);
-            color: #fff;
-        }
-        .btn-primary:hover {
-            background: var(--accent-hover);
-            box-shadow: 0 4px 16px rgba(74, 144, 217, 0.3);
-        }
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-        }
-        .btn-outline:hover {
-            background: var(--accent-light);
-        }
-        .btn-danger {
-            background: var(--danger);
-            color: #fff;
-        }
-        .btn-danger:hover {
-            background: #c0392b;
-        }
-        .btn-sm {
-            padding: 0.4rem 0.8rem;
-            font-size: 0.8rem;
-            border-radius: 6px;
-        }
-        .btn-group {
-            display: flex;
-            gap: 0.6rem;
-            flex-wrap: wrap;
-        }
+.buttons {
+  margin-top: 20px;
+}
 
-        /* Timetable Grid */
-        .timetable-grid {
-            display: grid;
-            grid-template-columns: 80px repeat(5, 1fr);
-            gap: 2px;
-            background: var(--border);
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-            font-size: 0.82rem;
-            margin-top: 0.5rem;
-        }
-        .timetable-grid .cell {
-            background: var(--card-bg);
-            padding: 0.5rem 0.4rem;
-            text-align: center;
-            min-height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            word-break: break-word;
-            transition: background var(--transition);
-            font-weight: 500;
-        }
-        .timetable-grid .header-cell {
-            background: var(--accent-light);
-            font-weight: 700;
-            color: var(--accent);
-            font-size: 0.8rem;
-        }
-        .timetable-grid .time-cell {
-            font-weight: 600;
-            color: var(--text-secondary);
-            font-size: 0.78rem;
-            background: var(--accent-light);
-        }
-        .timetable-grid .filled-cell {
-            background: #d4e9ff;
-            color: #1a3c5e;
-            font-weight: 600;
-            border-radius: 4px;
-            margin: 2px;
-        }
-        .dark-mode .timetable-grid .filled-cell {
-            background: #2a4a6b;
-            color: #c8ddf5;
-        }
-        .dark-mode .timetable-grid .header-cell,
-        .dark-mode .timetable-grid .time-cell {
-            background: #2a3545;
-            color: #a0c4e8;
-        }
+.btn {
+  padding: 12px 25px;
+  margin: 10px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  backdrop-filter: blur(10px);
+  transition: 0.3s;
+}
 
-        /* Assignment list */
-        .assignment-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            padding: 1rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            margin-bottom: 0.6rem;
-            transition: all var(--transition);
-        }
-        .assignment-item:hover {
-            border-color: var(--accent);
-        }
-        .assignment-item.completed {
-            opacity: 0.6;
-            text-decoration: line-through;
-        }
-        .countdown {
-            font-weight: 700;
-            color: var(--accent);
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-        .countdown.urgent {
-            color: var(--danger);
-            animation: pulse 1.2s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-        }
+.btn:hover {
+  background: rgba(255,255,255,0.4);
+}
 
-        /* Pomodoro */
-        .pomodoro-display {
-            text-align: center;
-            padding: 2rem;
-        }
-        .pomodoro-time {
-            font-size: 5rem;
-            font-weight: 800;
-            letter-spacing: -2px;
-            color: var(--accent);
-            font-variant-numeric: tabular-nums;
-            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-        }
-        .pomodoro-label {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            font-weight: 500;
-        }
+/* GLASS CARD */
+.glass {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px;
+}
 
-        /* Notes */
-        .note-item {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 1rem;
-            margin-bottom: 0.6rem;
-            transition: all var(--transition);
-        }
-        .note-item h4 {
-            margin-bottom: 0.3rem;
-            font-weight: 600;
-        }
-        .note-item p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 0.6rem;
-        }
+/* JOB LIST */
+.jobs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+}
 
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 1.5rem;
-            background: var(--footer-bg);
-            border-top: 1px solid var(--border);
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            transition: all var(--transition);
-        }
+.job-card {
+  transition: 0.3s;
+}
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 0 0.8rem;
-                height: 52px;
-                gap: 0.5rem;
-            }
-            .navbar .logo {
-                font-size: 1.1rem;
-            }
-            .nav-links a,
-            .nav-links button {
-                font-size: 0.8rem;
-                padding: 0.4rem 0.6rem;
-            }
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
-            .timetable-grid {
-                grid-template-columns: 55px repeat(5, 1fr);
-                font-size: 0.7rem;
-            }
-            .timetable-grid .cell {
-                padding: 0.3rem 0.2rem;
-                min-height: 30px;
-            }
-            .pomodoro-time {
-                font-size: 3.2rem;
-            }
-            .dashboard-header h1 {
-                font-size: 1.5rem;
-            }
-            .tool-section-header h2 {
-                font-size: 1.2rem;
-            }
-        }
-        @media (max-width: 480px) {
-            .nav-links a,
-            .nav-links button {
-                font-size: 0.75rem;
-                padding: 0.35rem 0.5rem;
-            }
-            .navbar .logo {
-                font-size: 0.95rem;
-            }
-            .timetable-grid {
-                grid-template-columns: 40px repeat(5, 1fr);
-                font-size: 0.62rem;
-            }
-            .pomodoro-time {
-                font-size: 2.5rem;
-            }
-            .btn {
-                padding: 0.5rem 0.9rem;
-                font-size: 0.8rem;
-            }
-        }
+.job-card:hover {
+  transform: translateY(-5px);
+}
 
-        /* Print styles */
-        @media print {
-            .navbar,
-            .footer,
-            .back-btn,
-            .btn,
-            .ad-banner,
-            .dark-toggle,
-            .nav-links,
-            .dropdown-menu {
-                display: none !important;
-            }
-            body {
-                background: #fff;
-                color: #000;
-            }
-            .main-container {
-                max-width: 100%;
-                padding: 0;
-            }
-            .timetable-grid {
-                border: 2px solid #000;
-                gap: 1px;
-                background: #000;
-            }
-            .timetable-grid .cell {
-                background: #fff;
-                color: #000;
-                border: 1px solid #ccc;
-            }
-            .timetable-grid .header-cell {
-                background: #e0e0e0;
-                color: #000;
-            }
-            .card {
-                box-shadow: none;
-                border: 1px solid #ccc;
-                break-inside: avoid;
-            }
-        }
-    </style>
+/* FORM */
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 50px;
+  backdrop-filter: blur(10px);
+}
+
+</style>
 </head>
+
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo" onclick="navigateTo('dashboard')" title="Go to Dashboard">📚 StudentTools <span>Hub</span></div>
-        <ul class="nav-links">
-            <li><a href="#" class="active-link" data-nav="dashboard" onclick="navigateTo('dashboard')">🏠 Home</a></li>
-            <li class="dropdown">
-                <a href="#" data-nav="tools-dropdown">🛠️ Tools ▾</a>
-                <ul class="dropdown-menu">
-                    <li><a onclick="navigateTo('timetable')">📅 Timetable Generator</a></li>
-                    <li><a onclick="navigateTo('gpa')">📊 GPA Calculator</a></li>
-                    <li><a onclick="navigateTo('assignments')">📝 Assignment Planner</a></li>
-                    <li><a onclick="navigateTo('pomodoro')">⏱️ Pomodoro Timer</a></li>
-                    <li><a onclick="navigateTo('notes')">📒 Notes Organizer</a></li>
-                </ul>
-            </li>
-            <li><a href="#" data-nav="about" onclick="navigateTo('about')">ℹ️ About</a></li>
-            <li><button class="dark-toggle" id="darkToggle" title="Toggle Dark Mode" aria-label="Toggle dark mode">🌙</button></li>
-        </ul>
-    </nav>
+<!-- NAV -->
+<nav>
+  <h2>Mumue Jobs</h2>
+  <div>
+    <a href="#jobs">Jobs</a>
+    <a href="#post">Post Job</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
 
-    <!-- Main Content -->
-    <div class="main-container">
+<!-- HERO -->
+<section class="hero">
+  <h1>Find Jobs. Promote Opportunities. Grow Faster.</h1>
+  <div class="buttons">
+    <button class="btn" onclick="scrollToSection('jobs')">Browse Jobs</button>
+    <button class="btn" onclick="scrollToSection('post')">Post a Job</button>
+  </div>
+</section>
 
-        <!-- Dashboard Section -->
-        <section class="section active" id="dashboard-section">
-            <div class="dashboard-header">
-                <h1>📚 StudentTools Hub</h1>
-                <p>Free, fast, and simple tools for students everywhere. No sign-up needed.</p>
-            </div>
-            <div class="tools-grid">
-                <div class="tool-card" onclick="navigateTo('timetable')">
-                    <div class="icon-circle">📅</div>
-                    <h3>Study Timetable Generator</h3>
-                    <p>Build a clean weekly study schedule. Download or print it in one click.</p>
-                </div>
-                <div class="tool-card" onclick="navigateTo('gpa')">
-                    <div class="icon-circle">📊</div>
-                    <h3>GPA Calculator</h3>
-                    <p>Calculate your GPA with support for letter grades and percentage systems.</p>
-                </div>
-                <div class="tool-card" onclick="navigateTo('assignments')">
-                    <div class="icon-circle">📝</div>
-                    <h3>Assignment Planner</h3>
-                    <p>Track deadlines with live countdown timers. Never miss a due date.</p>
-                </div>
-                <div class="tool-card" onclick="navigateTo('pomodoro')">
-                    <div class="icon-circle">⏱️</div>
-                    <h3>Pomodoro Study Timer</h3>
-                    <p>25-minute focus sessions with 5-minute breaks. Stay productive.</p>
-                </div>
-                <div class="tool-card" onclick="navigateTo('notes')">
-                    <div class="icon-circle">📒</div>
-                    <h3>Notes Organizer</h3>
-                    <p>Create, edit, and delete notes. Saved locally on your device.</p>
-                </div>
-            </div>
-            <!-- Ad Banner Placeholder -->
-            <div class="ad-banner">
-                📢 Advertisement Space Available — <strong>Advertise Here</strong> • Reach thousands of students daily
-            </div>
-            <!-- Premium Teaser -->
-            <div class="ad-banner" style="border-color:#f39c12;color:#f39c12;margin-top:0.8rem;">
-                ⭐ <strong>Premium Features Coming Soon:</strong> Cloud sync • AI study assistant • Advanced analytics • Custom themes
-            </div>
-        </section>
+<!-- SEARCH -->
+<section class="glass">
+  <h2>Search Jobs</h2>
+  <input type="text" id="search" placeholder="Search jobs..." onkeyup="searchJobs()">
+</section>
 
-        <!-- Timetable Section -->
-        <section class="section" id="timetable-section">
-            <div class="tool-section-header">
-                <button class="back-btn" onclick="navigateTo('dashboard')">← Back</button>
-                <h2>📅 Study Timetable Generator</h2>
-            </div>
-            <div class="card">
-                <h3>Add a Subject</h3>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;" class="responsive-form">
-                    <div><label>Subject Name</label><input type="text" id="ttSubject" placeholder="e.g., Mathematics"></div>
-                    <div><label>Day</label><select id="ttDay"><option value="Monday">Monday</option><option value="Tuesday">Tuesday</option><option value="Wednesday">Wednesday</option><option value="Thursday">Thursday</option><option value="Friday">Friday</option></select></div>
-                    <div><label>Start Time</label><input type="time" id="ttStart" value="09:00"></div>
-                    <div><label>End Time</label><input type="time" id="ttEnd" value="10:30"></div>
-                </div>
-                <div class="btn-group" style="margin-top:0.5rem;">
-                    <button class="btn btn-primary" onclick="addTimetableEntry()">+ Add to Timetable</button>
-                    <button class="btn btn-outline" onclick="clearTimetable()">Clear All</button>
-                    <button class="btn btn-outline" onclick="printTimetable()">🖨️ Print Timetable</button>
-                </div>
-            </div>
-            <div class="card" id="timetableDisplayCard">
-                <h3>Weekly Timetable</h3>
-                <div class="timetable-grid" id="timetableGrid">
-                    <!-- Dynamically generated -->
-                </div>
-                <p style="margin-top:1rem;color:var(--text-secondary);font-size:0.85rem;" id="timetableEmptyMsg">No subjects added yet. Add your first subject above!</p>
-            </div>
-        </section>
+<!-- JOBS -->
+<section id="jobs">
+  <h2 style="text-align:center;">Featured Jobs</h2>
+  <div class="jobs" id="jobList">
 
-        <!-- GPA Section -->
-        <section class="section" id="gpa-section">
-            <div class="tool-section-header">
-                <button class="back-btn" onclick="navigateTo('dashboard')">← Back</button>
-                <h2>📊 GPA Calculator</h2>
-            </div>
-            <div class="card">
-                <label>Grading System</label>
-                <select id="gpaSystem" onchange="updateGPAPlaceholders()">
-                    <option value="letter">Letter Grades (A, B+, C, etc.)</option>
-                    <option value="percentage">Percentages (0–100)</option>
-                </select>
-                <div id="gpaRows">
-                    <div class="gpa-row" style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:end;margin-bottom:0.5rem;">
-                        <input type="text" placeholder="Course name" class="gpa-course" style="flex:2;min-width:120px;">
-                        <input type="text" placeholder="Grade (e.g., A, B+)" class="gpa-grade" style="flex:1;min-width:100px;">
-                        <input type="number" placeholder="Credits" class="gpa-credits" style="flex:1;min-width:80px;" min="0" step="0.5" value="3">
-                        <button class="btn btn-danger btn-sm" onclick="removeGPARow(this)" style="flex-shrink:0;">✕</button>
-                    </div>
-                </div>
-                <div class="btn-group" style="margin-top:0.5rem;">
-                    <button class="btn btn-outline btn-sm" onclick="addGPARow()">+ Add Course</button>
-                    <button class="btn btn-primary" onclick="calculateGPA()">Calculate GPA</button>
-                </div>
-                <div style="margin-top:1rem;font-size:1.2rem;font-weight:700;" id="gpaResult"></div>
-            </div>
-        </section>
-
-        <!-- Assignments Section -->
-        <section class="section" id="assignments-section">
-            <div class="tool-section-header">
-                <button class="back-btn" onclick="navigateTo('dashboard')">← Back</button>
-                <h2>📝 Assignment Planner</h2>
-            </div>
-            <div class="card">
-                <h3>Add Assignment</h3>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;" class="responsive-form">
-                    <div><label>Assignment Name</label><input type="text" id="asgName" placeholder="e.g., Essay Draft"></div>
-                    <div><label>Deadline Date & Time</label><input type="datetime-local" id="asgDeadline"></div>
-                </div>
-                <button class="btn btn-primary" onclick="addAssignment()" style="margin-top:0.5rem;">+ Add Assignment</button>
-            </div>
-            <div class="card">
-                <h3>Your Assignments</h3>
-                <div id="assignmentsList">
-                    <p style="color:var(--text-secondary);">No assignments yet. Add one above!</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pomodoro Section -->
-        <section class="section" id="pomodoro-section">
-            <div class="tool-section-header">
-                <button class="back-btn" onclick="navigateTo('dashboard')">← Back</button>
-                <h2>⏱️ Pomodoro Study Timer</h2>
-            </div>
-            <div class="card pomodoro-display">
-                <div class="pomodoro-label" id="pomodoroLabel">🔴 Focus Time</div>
-                <div class="pomodoro-time" id="pomodoroTime">25:00</div>
-                <div class="btn-group" style="justify-content:center;margin-top:1.5rem;">
-                    <button class="btn btn-primary" id="pomodoroStartBtn" onclick="startPomodoro()">▶ Start</button>
-                    <button class="btn btn-outline" id="pomodoroPauseBtn" onclick="pausePomodoro()" style="display:none;">⏸ Pause</button>
-                    <button class="btn btn-outline" onclick="resetPomodoro()">↺ Reset</button>
-                </div>
-                <p style="margin-top:1rem;color:var(--text-secondary);font-size:0.85rem;">25 min focus • 5 min break • Repeat</p>
-            </div>
-        </section>
-
-        <!-- Notes Section -->
-        <section class="section" id="notes-section">
-            <div class="tool-section-header">
-                <button class="back-btn" onclick="navigateTo('dashboard')">← Back</button>
-                <h2>📒 Notes Organizer</h2>
-            </div>
-            <div class="card">
-                <h3 id="notesFormTitle">Create a Note</h3>
-                <input type="text" id="noteTitle" placeholder="Note title...">
-                <textarea id="noteContent" placeholder="Write your note here..."></textarea>
-                <input type="hidden" id="noteEditId">
-                <div class="btn-group">
-                    <button class="btn btn-primary" onclick="saveNote()">💾 Save Note</button>
-                    <button class="btn btn-outline btn-sm" id="noteCancelBtn" onclick="cancelNoteEdit()" style="display:none;">Cancel Edit</button>
-                </div>
-            </div>
-            <div class="card">
-                <h3>Saved Notes</h3>
-                <div id="notesList">
-                    <p style="color:var(--text-secondary);">No notes saved yet. Create one above!</p>
-                </div>
-                <p style="font-size:0.78rem;color:var(--text-secondary);margin-top:0.8rem;">💡 Notes are saved in your browser's local storage. No data is uploaded anywhere.</p>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section class="section" id="about-section">
-            <div class="tool-section-header">
-                <button class="back-btn" onclick="navigateTo('dashboard')">← Back</button>
-                <h2>ℹ️ About StudentTools Hub</h2>
-            </div>
-            <div class="card">
-                <h3>🌍 Built for Students Worldwide</h3>
-                <p>StudentTools Hub is a free, lightweight platform offering essential academic tools for students of all ages. No sign-up, no tracking, no clutter — just fast, useful tools that work offline.</p>
-                <p style="margin-top:0.8rem;"><strong>Our Tools:</strong> Timetable Generator • GPA Calculator • Assignment Planner • Pomodoro Timer • Notes Organizer</p>
-                <p style="margin-top:0.8rem;"><strong>Privacy First:</strong> All your data (notes, assignments, timetables) is stored locally on your device using browser storage. Nothing is ever uploaded to a server.</p>
-                <p style="margin-top:0.8rem;"><strong>Always Free:</strong> Core tools are free forever. Premium features (cloud sync, AI assistant) are optional upgrades — coming soon!</p>
-                <p style="margin-top:1rem;color:var(--accent);font-weight:600;">📚 Happy Studying! — The StudentTools Hub Team</p>
-            </div>
-        </section>
-
+    <div class="glass job-card">
+      <h3>Frontend Developer</h3>
+      <p>TechCorp</p>
+      <p>Build modern UI applications</p>
+      <button class="btn">Apply</button>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>© 2025 <strong>StudentTools Hub</strong> — Free Study Tools for Students Worldwide 🌍 | <span style="color:var(--accent);">No Sign-Up Required</span></p>
-    </footer>
+    <div class="glass job-card">
+      <h3>Marketing Manager</h3>
+      <p>BrandCo</p>
+      <p>Lead marketing strategies</p>
+      <button class="btn">Apply</button>
+    </div>
 
-    <script>
-        // ==================== NAVIGATION ====================
-        const sections = {
-            dashboard: document.getElementById('dashboard-section'),
-            timetable: document.getElementById('timetable-section'),
-            gpa: document.getElementById('gpa-section'),
-            assignments: document.getElementById('assignments-section'),
-            pomodoro: document.getElementById('pomodoro-section'),
-            notes: document.getElementById('notes-section'),
-            about: document.getElementById('about-section'),
-        };
+  </div>
+</section>
 
-        let currentSection = 'dashboard';
+<!-- POST JOB -->
+<section id="post" class="glass">
+  <h2>Post a Job / Advertise</h2>
+  <form>
+    <input type="text" placeholder="Company Name" required>
+    <input type="text" placeholder="Job Title" required>
+    <textarea placeholder="Job Description" required></textarea>
+    <input type="text" placeholder="Contact Info" required>
+    <button class="btn">Submit</button>
+  </form>
+</section>
 
-        function navigateTo(sectionName) {
-            // Hide all sections
-            Object.values(sections).forEach(s => s.classList.remove('active'));
-            // Show target
-            if (sections[sectionName]) {
-                sections[sectionName].classList.add('active');
-                currentSection = sectionName;
-            }
-            // Update nav active states
-            document.querySelectorAll('.nav-links a[data-nav]').forEach(link => {
-                link.classList.remove('active-link');
-                if (link.getAttribute('data-nav') === sectionName ||
-                    (sectionName !== 'dashboard' && sectionName !== 'about' && link.getAttribute(
-                        'data-nav') === 'tools-dropdown')) {
-                    // keep dropdown highlighted for tool pages
-                }
-            });
-            // Highlight correct nav item
-            const navMap = {
-                'dashboard': 'dashboard',
-                'about': 'about',
-                'timetable': 'tools-dropdown',
-                'gpa': 'tools-dropdown',
-                'assignments': 'tools-dropdown',
-                'pomodoro': 'tools-dropdown',
-                'notes': 'tools-dropdown',
-            };
-            document.querySelectorAll('.nav-links a[data-nav]').forEach(link => {
-                link.classList.remove('active-link');
-                if (link.getAttribute('data-nav') === navMap[sectionName]) {
-                    link.classList.add('active-link');
-                }
-            });
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            // If navigating to assignments, refresh countdowns
-            if (sectionName === 'assignments') renderAssignments();
-            // If navigating to notes, refresh list
-            if (sectionName === 'notes') renderNotes();
-            // If navigating to timetable, re-render grid
-            if (sectionName === 'timetable') renderTimetableGrid();
-        }
+<!-- ABOUT -->
+<section id="about" class="glass">
+  <h2>About</h2>
+  <p>
+    Founded by Mumue, this platform connects job seekers with real opportunities
+    while helping businesses reach the right audience.
+  </p>
+</section>
 
-        // ==================== DARK MODE ====================
-        const darkToggle = document.getElementById('darkToggle');
-        const savedTheme = localStorage.getItem('darkMode');
-        if (savedTheme === 'true') {
-            document.body.classList.add('dark-mode');
-            darkToggle.textContent = '☀️';
-        }
+<!-- CONTACT -->
+<section id="contact" class="glass">
+  <h2>Contact</h2>
+  <p>📞 +27 63 308 1796</p>
+  <form>
+    <input type="text" placeholder="Your Name">
+    <input type="email" placeholder="Email">
+    <textarea placeholder="Message"></textarea>
+    <button class="btn">Send</button>
+  </form>
 
-        darkToggle.addEventListener('click', () => {
-            const isDark = document.body.classList.toggle('dark-mode');
-            darkToggle.textContent = isDark ? '☀️' : '🌙';
-            localStorage.setItem('darkMode', isDark);
-        });
+  <br>
+  <a href="https://wa.me/27633081796" target="_blank">
+    <button class="btn">WhatsApp</button>
+  </a>
+</section>
 
-        // ==================== TIMETABLE GENERATOR ====================
-        let timetableEntries = JSON.parse(localStorage.getItem('timetableEntries') || '[]');
+<!-- FOOTER -->
+<footer>
+  <p>Owned and Founded by Mumue</p>
+  <p>📞 +27 63 308 1796</p>
+  <p>Social Links (Coming Soon)</p>
+</footer>
 
-        function addTimetableEntry() {
-            const subject = document.getElementById('ttSubject').value.trim();
-            const day = document.getElementById('ttDay').value;
-            const start = document.getElementById('ttStart').value;
-            const end = document.getElementById('ttEnd').value;
+<!-- JS -->
+<script>
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
 
-            if (!subject) { alert('Please enter a subject name.'); return; }
-            if (!start || !end) { alert('Please enter both start and end times.'); return; }
-            if (start >= end) { alert('End time must be after start time.'); return; }
+function searchJobs() {
+  let input = document.getElementById("search").value.toLowerCase();
+  let jobs = document.querySelectorAll(".job-card");
 
-            timetableEntries.push({ subject, day, start, end, id: Date.now() });
-            saveTimetable();
-            renderTimetableGrid();
-            // Clear inputs
-            document.getElementById('ttSubject').value = '';
-            document.getElementById('ttStart').value = '09:00';
-            document.getElementById('ttEnd').value = '10:30';
-        }
+  jobs.forEach(job => {
+    let text = job.innerText.toLowerCase();
+    job.style.display = text.includes(input) ? "block" : "none";
+  });
+}
+</script>
 
-        function clearTimetable() {
-            if (confirm('Clear all timetable entries?')) {
-                timetableEntries = [];
-                saveTimetable();
-                renderTimetableGrid();
-            }
-        }
-
-        function saveTimetable() {
-            localStorage.setItem('timetableEntries', JSON.stringify(timetableEntries));
-        }
-
-        function printTimetable() {
-            window.print();
-        }
-
-        function renderTimetableGrid() {
-            const grid = document.getElementById('timetableGrid');
-            const emptyMsg = document.getElementById('timetableEmptyMsg');
-            const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-            const timeSlots = [];
-            // Generate hourly slots from 7AM to 8PM
-            for (let h = 7; h <= 20; h++) {
-                timeSlots.push(`${String(h).padStart(2, '0')}:00`);
-            }
-
-            if (timetableEntries.length === 0) {
-                grid.innerHTML = '';
-                emptyMsg.style.display = 'block';
-                return;
-            }
-            emptyMsg.style.display = 'none';
-
-            let html = '<div class="cell header-cell">Time</div>';
-            days.forEach(d => {
-                html += `<div class="cell header-cell">${d.slice(0,3)}</div>`;
-            });
-
-            timeSlots.forEach(time => {
-                html += `<div class="cell time-cell">${time}</div>`;
-                days.forEach(day => {
-                    // Find entries that overlap this time slot for this day
-                    const entries = timetableEntries.filter(e => e.day === day && isTimeInSlot(
-                        time, e.start, e.end));
-                    if (entries.length > 0) {
-                        html +=
-                            `<div class="cell filled-cell" title="${entries.map(e=>e.subject).join(', ')}">${entries.map(e=>e.subject).join(', ')}</div>`;
-                    } else {
-                        html += '<div class="cell"></div>';
-                    }
-                });
-            });
-
-            grid.innerHTML = html;
-        }
-
-        function isTimeInSlot(slotTime, startTime, endTime) {
-            // slotTime is like "09:00", startTime like "09:00", endTime like "10:30"
-            const slot = slotTime.split(':').map(Number);
-            const start = startTime.split(':').map(Number);
-            const end = endTime.split(':').map(Number);
-            const slotMin = slot[0] * 60 + slot[1];
-            const startMin = start[0] * 60 + start[1];
-            const endMin = end[0] * 60 + end[1];
-            // The slot represents the hour starting at slotMin. Entry overlaps if startMin < slotMin+60 and endMin > slotMin
-            return startMin < (slotMin + 60) && endMin > slotMin;
-        }
-
-        // Initialize timetable grid
-        renderTimetableGrid();
-
-        // ==================== GPA CALCULATOR ====================
-        function letterToGPA(grade) {
-            const map = {
-                'A': 4.0,
-                'A-': 3.7,
-                'B+': 3.3,
-                'B': 3.0,
-                'B-': 2.7,
-                'C+': 2.3,
-                'C': 2.0,
-                'C-': 1.7,
-                'D+': 1.3,
-                'D': 1.0,
-                'F': 0.0
-            };
-            return map[grade.trim().toUpperCase()] ?? null;
-        }
-
-        function percentageToGPA(pct) {
-            const p = parseFloat(pct);
-            if (isNaN(p)) return null;
-            if (p >= 90) return 4.0;
-            if (p >= 85) return 3.7;
-            if (p >= 80) return 3.3;
-            if (p >= 75) return 3.0;
-            if (p >= 70) return 2.7;
-            if (p >= 65) return 2.3;
-            if (p >= 60) return 2.0;
-            if (p >= 55) return 1.7;
-            if (p >= 50) return 1.3;
-            if (p >= 45) return 1.0;
-            return 0.0;
-        }
-
-        function addGPARow() {
-            const container = document.getElementById('gpaRows');
-            const row = document.createElement('div');
-            row.className = 'gpa-row';
-            row.style.cssText =
-                'display:flex;gap:0.5rem;flex-wrap:wrap;align-items:end;margin-bottom:0.5rem;';
-            const system = document.getElementById('gpaSystem').value;
-            const gradePlaceholder = system === 'letter' ? 'Grade (e.g., A, B+)' : 'Percentage (e.g., 85)';
-            row.innerHTML = `
-            <input type="text" placeholder="Course name" class="gpa-course" style="flex:2;min-width:120px;">
-            <input type="text" placeholder="${gradePlaceholder}" class="gpa-grade" style="flex:1;min-width:100px;">
-            <input type="number" placeholder="Credits" class="gpa-credits" style="flex:1;min-width:80px;" min="0" step="0.5" value="3">
-            <button class="btn btn-danger btn-sm" onclick="removeGPARow(this)" style="flex-shrink:0;">✕</button>
-          `;
-            container.appendChild(row);
-        }
-
-        function removeGPARow(btn) {
-            const rows = document.querySelectorAll('.gpa-row');
-            if (rows.length <= 1) return; // Keep at least one row
-            btn.closest('.gpa-row').remove();
-        }
-
-        function updateGPAPlaceholders() {
-            const system = document.getElementById('gpaSystem').value;
-            const placeholder = system === 'letter' ? 'Grade (e.g., A, B+)' : 'Percentage (e.g., 85)';
-            document.querySelectorAll('.gpa-grade').forEach(input => {
-                input.placeholder = placeholder;
-            });
-        }
-
-        function calculateGPA() {
-            const rows = document.querySelectorAll('.gpa-row');
-            const system = document.getElementById('gpaSystem').value;
-            let totalPoints = 0;
-            let totalCredits = 0;
-            const resultDiv = document.getElementById('gpaResult');
-
-            for (const row of rows) {
-                const gradeInput = row.querySelector('.gpa-grade');
-                const creditInput = row.querySelector('.gpa-credits');
-                const gradeVal = gradeInput.value.trim();
-                const credits = parseFloat(creditInput.value);
-
-                if (!gradeVal || isNaN(credits) || credits <= 0) continue;
-
-                let gpaPoints = null;
-                if (system === 'letter') {
-                    gpaPoints = letterToGPA(gradeVal);
-                } else {
-                    gpaPoints = percentageToGPA(gradeVal);
-                }
-
-                if (gpaPoints === null) {
-                    resultDiv.innerHTML =
-                        `<span style="color:var(--danger);">⚠️ Invalid grade: "${gradeVal}". Please check your input.</span>`;
-                    return;
-                }
-
-                totalPoints += gpaPoints * credits;
-                totalCredits += credits;
-            }
-
-            if (totalCredits === 0) {
-                resultDiv.innerHTML =
-                `<span style="color:var(--danger);">⚠️ Please add at least one course with valid grade and credits.</span>`;
-                return;
-            }
-
-            const gpa = (totalPoints / totalCredits).toFixed(2);
-            resultDiv.innerHTML = `✅ Your GPA: <strong style="font-size:1.5rem;color:var(--accent);">${gpa}</strong> (based on ${totalCredits} credit hours)`;
-        }
-
-        // ==================== ASSIGNMENT PLANNER ====================
-        let assignments = JSON.parse(localStorage.getItem('assignments') || '[]');
-        let assignmentInterval = null;
-
-        function addAssignment() {
-            const name = document.getElementById('asgName').value.trim();
-            const deadline = document.getElementById('asgDeadline').value;
-            if (!name) { alert('Please enter an assignment name.'); return; }
-            if (!deadline) { alert('Please set a deadline.'); return; }
-            assignments.push({ name, deadline, id: Date.now(), completed: false });
-            saveAssignments();
-            renderAssignments();
-            document.getElementById('asgName').value = '';
-            document.getElementById('asgDeadline').value = '';
-        }
-
-        function toggleAssignment(id) {
-            const asg = assignments.find(a => a.id === id);
-            if (asg) {
-                asg.completed = !asg.completed;
-                saveAssignments();
-                renderAssignments();
-            }
-        }
-
-        function deleteAssignment(id) {
-            assignments = assignments.filter(a => a.id !== id);
-            saveAssignments();
-            renderAssignments();
-        }
-
-        function saveAssignments() {
-            localStorage.setItem('assignments', JSON.stringify(assignments));
-        }
-
-        function getCountdown(deadlineStr) {
-            const now = new Date();
-            const deadline = new Date(deadlineStr);
-            const diff = deadline - now;
-            if (diff <= 0) return { text: '⏰ Overdue!', urgent: true, expired: true };
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const urgent = days < 1;
-            return {
-                text: `${days}d ${hours}h ${minutes}m remaining`,
-                urgent,
-                expired: false
-            };
-        }
-
-        function renderAssignments() {
-            const list = document.getElementById('assignmentsList');
-            if (assignments.length === 0) {
-                list.innerHTML = '<p style="color:var(--text-secondary);">No assignments yet. Add one above!</p>';
-                return;
-            }
-            // Sort by deadline
-            assignments.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
-            list.innerHTML = assignments.map(a => {
-                const cd = getCountdown(a.deadline);
-                const completedClass = a.completed ? 'completed' : '';
-                return `
-              <div class="assignment-item ${completedClass}">
-                <div>
-                  <strong>${escapeHTML(a.name)}</strong>
-                  <span style="font-size:0.8rem;color:var(--text-secondary);display:block;">📅 ${new Date(a.deadline).toLocaleString()}</span>
-                </div>
-                <span class="countdown ${cd.urgent && !a.completed ? 'urgent' : ''}">${cd.text}</span>
-                <div class="btn-group">
-                  <button class="btn btn-sm ${a.completed ? 'btn-outline' : 'btn-primary'}" onclick="toggleAssignment(${a.id})">${a.completed ? '↩ Undo' : '✓ Done'}</button>
-                  <button class="btn btn-sm btn-danger" onclick="deleteAssignment(${a.id})">🗑</button>
-                </div>
-              </div>
-            `;
-            }).join('');
-        }
-
-        function escapeHTML(str) {
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
-        }
-
-        // Refresh countdowns every 30 seconds
-        if (assignmentInterval) clearInterval(assignmentInterval);
-        assignmentInterval = setInterval(() => {
-            if (currentSection === 'assignments') renderAssignments();
-        }, 30000);
-        renderAssignments();
-
-        // ==================== POMODORO TIMER ====================
-        let pomodoroState = {
-            mode: 'focus', // 'focus' or 'break'
-            focusDuration: 25 * 60,
-            breakDuration: 5 * 60,
-            remainingSeconds: 25 * 60,
-            isRunning: false,
-            intervalId: null,
-        };
-
-        // Load saved pomodoro state (only durations, not running state)
-        const savedPomodoro = JSON.parse(localStorage.getItem('pomodoroState') || 'null');
-        if (savedPomodoro && savedPomodoro.remainingSeconds && savedPomodoro.mode) {
-            pomodoroState.remainingSeconds = savedPomodoro.remainingSeconds;
-            pomodoroState.mode = savedPomodoro.mode;
-            pomodoroState.isRunning = false;
-        }
-
-        function updatePomodoroDisplay() {
-            const mins = Math.floor(pomodoroState.remainingSeconds / 60);
-            const secs = pomodoroState.remainingSeconds % 60;
-            document.getElementById('pomodoroTime').textContent =
-                `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-            document.getElementById('pomodoroLabel').textContent =
-                pomodoroState.mode === 'focus' ? '🔴 Focus Time' : '🟢 Break Time';
-            document.getElementById('pomodoroLabel').style.color =
-                pomodoroState.mode === 'focus' ? 'var(--danger)' : 'var(--success)';
-        }
-
-        function startPomodoro() {
-            if (pomodoroState.isRunning) return;
-            pomodoroState.isRunning = true;
-            document.getElementById('pomodoroStartBtn').style.display = 'none';
-            document.getElementById('pomodoroPauseBtn').style.display = 'inline-flex';
-            pomodoroState.intervalId = setInterval(() => {
-                if (pomodoroState.remainingSeconds <= 0) {
-                    // Switch mode
-                    if (pomodoroState.mode === 'focus') {
-                        pomodoroState.mode = 'break';
-                        pomodoroState.remainingSeconds = pomodoroState.breakDuration;
-                        playNotification();
-                    } else {
-                        pomodoroState.mode = 'focus';
-                        pomodoroState.remainingSeconds = pomodoroState.focusDuration;
-                        playNotification();
-                    }
-                    savePomodoroState();
-                    updatePomodoroDisplay();
-                } else {
-                    pomodoroState.remainingSeconds--;
-                    updatePomodoroDisplay();
-                }
-            }, 1000);
-            savePomodoroState();
-        }
-
-        function pausePomodoro() {
-            pomodoroState.isRunning = false;
-            if (pomodoroState.intervalId) clearInterval(pomodoroState.intervalId);
-            pomodoroState.intervalId = null;
-            document.getElementById('pomodoroStartBtn').style.display = 'inline-flex';
-            document.getElementById('pomodoroPauseBtn').style.display = 'none';
-            savePomodoroState();
-        }
-
-        function resetPomodoro() {
-            pausePomodoro();
-            pomodoroState.mode = 'focus';
-            pomodoroState.remainingSeconds = pomodoroState.focusDuration;
-            updatePomodoroDisplay();
-            savePomodoroState();
-        }
-
-        function savePomodoroState() {
-            localStorage.setItem('pomodoroState', JSON.stringify({
-                mode: pomodoroState.mode,
-                remainingSeconds: pomodoroState.remainingSeconds,
-            }));
-        }
-
-        function playNotification() {
-            // Simple audio notification using Web Audio API
-            try {
-                const ctx = new(window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.frequency.value = 800;
-                osc.type = 'sine';
-                gain.gain.value = 0.3;
-                osc.start();
-                setTimeout(() => {
-                    osc.stop();
-                    ctx.close();
-                }, 300);
-            } catch (e) {
-                // Silently fail if audio not supported
-            }
-        }
-
-        updatePomodoroDisplay();
-        // Ensure correct button state on load
-        document.getElementById('pomodoroStartBtn').style.display = 'inline-flex';
-        document.getElementById('pomodoroPauseBtn').style.display = 'none';
-
-        // ==================== NOTES ORGANIZER ====================
-        let notes = JSON.parse(localStorage.getItem('studentNotes') || '[]');
-        let editingNoteId = null;
-
-        function saveNote() {
-            const title = document.getElementById('noteTitle').value.trim();
-            const content = document.getElementById('noteContent').value.trim();
-            if (!title) { alert('Please enter a note title.'); return; }
-            if (!content) { alert('Please enter some content for your note.'); return; }
-
-            if (editingNoteId) {
-                // Update existing note
-                const note = notes.find(n => n.id === editingNoteId);
-                if (note) {
-                    note.title = title;
-                    note.content = content;
-                    note.updatedAt = new Date().toISOString();
-                }
-                editingNoteId = null;
-                document.getElementById('noteEditId').value = '';
-                document.getElementById('notesFormTitle').textContent = 'Create a Note';
-                document.getElementById('noteCancelBtn').style.display = 'none';
-            } else {
-                // Create new note
-                notes.push({
-                    id: Date.now(),
-                    title,
-                    content,
-                    createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString(),
-                });
-            }
-
-            saveNotesToStorage();
-            renderNotes();
-            document.getElementById('noteTitle').value = '';
-            document.getElementById('noteContent').value = '';
-            document.getElementById('noteEditId').value = '';
-        }
-
-        function editNote(id) {
-            const note = notes.find(n => n.id === id);
-            if (!note) return;
-            editingNoteId = id;
-            document.getElementById('noteTitle').value = note.title;
-            document.getElementById('noteContent').value = note.content;
-            document.getElementById('noteEditId').value = id;
-            document.getElementById('notesFormTitle').textContent = 'Edit Note';
-            document.getElementById('noteCancelBtn').style.display = 'inline-flex';
-            // Scroll to form
-            document.getElementById('noteTitle').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function cancelNoteEdit() {
-            editingNoteId = null;
-            document.getElementById('noteTitle').value = '';
-            document.getElementById('noteContent').value = '';
-            document.getElementById('noteEditId').value = '';
-            document.getElementById('notesFormTitle').textContent = 'Create a Note';
-            document.getElementById('noteCancelBtn').style.display = 'none';
-        }
-
-        function deleteNote(id) {
-            if (confirm('Delete this note? This cannot be undone.')) {
-                notes = notes.filter(n => n.id !== id);
-                if (editingNoteId === id) cancelNoteEdit();
-                saveNotesToStorage();
-                renderNotes();
-            }
-        }
-
-        function saveNotesToStorage() {
-            localStorage.setItem('studentNotes', JSON.stringify(notes));
-        }
-
-        function renderNotes() {
-            const list = document.getElementById('notesList');
-            if (notes.length === 0) {
-                list.innerHTML = '<p style="color:var(--text-secondary);">No notes saved yet. Create one above!</p>';
-                return;
-            }
-            // Sort by most recently updated
-            notes.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-            list.innerHTML = notes.map(n => `
-            <div class="note-item">
-              <h4>📄 ${escapeHTML(n.title)}</h4>
-              <p>${escapeHTML(n.content.substring(0, 150))}${n.content.length > 150 ? '...' : ''}</p>
-              <small style="color:var(--text-secondary);">Updated: ${new Date(n.updatedAt).toLocaleString()}</small>
-              <div class="btn-group" style="margin-top:0.5rem;">
-                <button class="btn btn-sm btn-outline" onclick="editNote(${n.id})">✏️ Edit</button>
-                <button class="btn btn-sm btn-danger" onclick="deleteNote(${n.id})">🗑 Delete</button>
-              </div>
-            </div>
-          `).join('');
-        }
-
-        renderNotes();
-
-        // ==================== INITIALIZATION ====================
-        // Ensure dashboard is shown on load
-        navigateTo('dashboard');
-
-        // Update all displays
-        updatePomodoroDisplay();
-        renderTimetableGrid();
-        renderAssignments();
-        renderNotes();
-
-        console.log('✅ StudentTools Hub ready! All tools loaded. Data stored locally in your browser.');
-        console.log('📚 Tools: Timetable | GPA Calculator | Assignment Planner | Pomodoro Timer | Notes Organizer');
-        console.log('🌍 Built for students worldwide — no sign-up, no tracking, fully offline-capable.');
-    </script>
 </body>
 </html>
