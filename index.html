@@ -3,222 +3,205 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mumue Jobs Platform</title>
-
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Saint Official</title>
 
 <style>
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
 body {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: white;
+    height: 100vh;
+    background: url('https://images.unsplash.com/photo-1492724441997-5dc865305da7') no-repeat center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden;
 }
 
-/* NAVBAR */
-nav {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  backdrop-filter: blur(10px);
+/* Dark overlay */
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
 }
 
-nav a {
-  color: white;
-  margin-left: 20px;
-  text-decoration: none;
+/* Glass */
+.glass {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
 }
 
-/* HERO */
-.hero {
-  text-align: center;
-  padding: 100px 20px;
+/* Container */
+.container {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    padding: 30px;
+    text-align: center;
+    animation: fadeIn 1.5s ease;
 }
 
-.hero h1 {
-  font-size: 2.5rem;
+/* Animations */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
 }
 
-.buttons {
-  margin-top: 20px;
+@keyframes float {
+    0%,100% {transform: translateY(0);}
+    50% {transform: translateY(-5px);}
 }
 
+/* Hero */
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+p {
+    opacity: 0.85;
+}
+
+/* Services */
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.card {
+    padding: 20px;
+    transition: 0.3s;
+    animation: float 4s ease-in-out infinite;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(255,255,255,0.2);
+}
+
+/* Contact */
+.contact {
+    margin-top: 30px;
+}
+
+/* Buttons */
 .btn {
-  padding: 12px 25px;
-  margin: 10px;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  background: rgba(255,255,255,0.2);
-  color: white;
-  backdrop-filter: blur(10px);
-  transition: 0.3s;
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 22px;
+    border-radius: 25px;
+    border: none;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
 }
 
 .btn:hover {
-  background: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.35);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
 }
 
-/* GLASS CARD */
-.glass {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(15px);
-  border-radius: 15px;
-  padding: 20px;
-  margin: 20px;
+/* Form */
+form {
+    margin-top: 20px;
 }
 
-/* JOB LIST */
-.jobs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+input, textarea {
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.15);
+    color: white;
 }
 
-.job-card {
-  transition: 0.3s;
+input::placeholder, textarea::placeholder {
+    color: #ddd;
 }
 
-.job-card:hover {
-  transform: translateY(-5px);
+textarea {
+    resize: none;
+    height: 100px;
 }
 
-/* FORM */
-input, textarea, select {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 10px;
-  border: none;
-}
-
-/* FOOTER */
+/* Footer */
 footer {
-  text-align: center;
-  padding: 20px;
-  margin-top: 50px;
-  backdrop-filter: blur(10px);
+    margin-top: 20px;
+    font-size: 0.8em;
+    opacity: 0.7;
 }
 
+/* Parallax effect */
+body {
+    background-attachment: fixed;
+}
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
-<nav>
-  <h2>Mumue Jobs</h2>
-  <div>
-    <a href="#jobs">Jobs</a>
-    <a href="#post">Post Job</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
+<div class="container glass">
 
-<!-- HERO -->
-<section class="hero">
-  <h1>Find Jobs. Promote Opportunities. Grow Faster.</h1>
-  <div class="buttons">
-    <button class="btn" onclick="scrollToSection('jobs')">Browse Jobs</button>
-    <button class="btn" onclick="scrollToSection('post')">Post a Job</button>
-  </div>
-</section>
+    <!-- Hero -->
+    <h1>SAINT OFFICIAL SITE</h1>
+    <p>We connect you through memes and powerful advertising</p>
 
-<!-- SEARCH -->
-<section class="glass">
-  <h2>Search Jobs</h2>
-  <input type="text" id="search" placeholder="Search jobs..." onkeyup="searchJobs()">
-</section>
-
-<!-- JOBS -->
-<section id="jobs">
-  <h2 style="text-align:center;">Featured Jobs</h2>
-  <div class="jobs" id="jobList">
-
-    <div class="glass job-card">
-      <h3>Frontend Developer</h3>
-      <p>TechCorp</p>
-      <p>Build modern UI applications</p>
-      <button class="btn">Apply</button>
+    <!-- Services -->
+    <div class="services">
+        <div class="card glass">WE OFFER MEMES</div>
+        <div class="card glass">WHATSAPP ADVERTISING</div>
+        <div class="card glass">VERIFIED WHATSAPP BUSINESS</div>
+        <div class="card glass">VERIFIED MEMES CHANNEL</div>
     </div>
 
-    <div class="glass job-card">
-      <h3>Marketing Manager</h3>
-      <p>BrandCo</p>
-      <p>Lead marketing strategies</p>
-      <button class="btn">Apply</button>
+    <!-- Contact -->
+    <div class="contact">
+        <h3>Contact Saint Official</h3>
+        <p>+263 71 355 1214</p>
+
+        <div>
+            <!-- WhatsApp Direct Chat -->
+            <a class="btn" href="https://wa.me/263713551214" target="_blank">WhatsApp</a>
+
+            <a class="btn" href="#">Email</a>
+            <a class="btn" href="#">Instagram</a>
+            <a class="btn" href="#">Twitter</a>
+        </div>
     </div>
 
-  </div>
-</section>
+    <!-- Form -->
+    <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Enter your message and we will get back to you"></textarea>
+        <button class="btn" type="submit">Send Message</button>
+    </form>
 
-<!-- POST JOB -->
-<section id="post" class="glass">
-  <h2>Post a Job / Advertise</h2>
-  <form>
-    <input type="text" placeholder="Company Name" required>
-    <input type="text" placeholder="Job Title" required>
-    <textarea placeholder="Job Description" required></textarea>
-    <input type="text" placeholder="Contact Info" required>
-    <button class="btn">Submit</button>
-  </form>
-</section>
+    <!-- Footer -->
+    <footer>
+        © SAINT OFFICIAL
+    </footer>
 
-<!-- ABOUT -->
-<section id="about" class="glass">
-  <h2>About</h2>
-  <p>
-    Founded by Mumue, this platform connects job seekers with real opportunities
-    while helping businesses reach the right audience.
-  </p>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="glass">
-  <h2>Contact</h2>
-  <p>📞 +27 63 308 1796</p>
-  <form>
-    <input type="text" placeholder="Your Name">
-    <input type="email" placeholder="Email">
-    <textarea placeholder="Message"></textarea>
-    <button class="btn">Send</button>
-  </form>
-
-  <br>
-  <a href="https://wa.me/27633081796" target="_blank">
-    <button class="btn">WhatsApp</button>
-  </a>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p>Owned and Founded by Mumue</p>
-  <p>📞 +27 63 308 1796</p>
-  <p>Social Links (Coming Soon)</p>
-</footer>
-
-<!-- JS -->
-<script>
-function scrollToSection(id) {
-  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-}
-
-function searchJobs() {
-  let input = document.getElementById("search").value.toLowerCase();
-  let jobs = document.querySelectorAll(".job-card");
-
-  jobs.forEach(job => {
-    let text = job.innerText.toLowerCase();
-    job.style.display = text.includes(input) ? "block" : "none";
-  });
-}
-</script>
+</div>
 
 </body>
 </html>
